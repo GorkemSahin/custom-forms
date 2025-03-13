@@ -49,7 +49,7 @@ export const renderInput = (field: FieldData, controls: FieldControls) => {
       if ("options" in field.data) {
         const currentValue = (value as string[]) || [];
         return (
-          <FormGroup>
+          <FormGroup row>
             {field.data.options.map((option) => (
               <FormControlLabel
                 key={option}

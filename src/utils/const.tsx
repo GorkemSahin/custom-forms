@@ -22,7 +22,7 @@ export const FORM_CONFIG_EXAMPLE: FormConfig = {
     {
       id: "name_surname",
       type: "TEXT",
-      label: "Name and Surname",
+      label: "Name and surname",
       required: true,
     },
     {
@@ -41,19 +41,18 @@ export const FORM_CONFIG_EXAMPLE: FormConfig = {
     },
     {
       id: "subjects",
-      label: "Subjects Studied",
-      type: "SELECT",
+      label: "Subjects studied",
+      type: "CHECKBOX",
       data: {
-        multiple: true,
-        options: ["History", "Art", "Literature", "Geometry", "Chemistry"],
+        options: ["History", "Drawing", "Literature", "Geometry", "Chemistry"],
       },
     },
     {
       id: "fav_subject",
-      label: "Favorite Subject",
+      label: "Favorite subject",
       type: "RADIO",
       data: {
-        options: ["History", "Art", "Literature", "Geometry", "Chemistry"],
+        options: ["History", "Drawing", "Literature", "Geometry", "Chemistry"],
       },
     },
     {
@@ -63,9 +62,18 @@ export const FORM_CONFIG_EXAMPLE: FormConfig = {
       data: { binaryCondition: true },
     },
     {
+      id: "wanted_subjects",
+      label: "Subjects the student wants to study",
+      type: "SELECT",
+      data: {
+        options: ["Mathematics", "Physics", "Biology", "Music"],
+        multiple: true,
+      },
+    },
+    {
       id: "fav_class",
       type: "TEXT_AREA",
-      label: "Additional Information",
+      label: "Additional information",
       data: { size: 4 },
     },
   ],
