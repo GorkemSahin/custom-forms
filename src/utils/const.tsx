@@ -71,7 +71,7 @@ export const FORM_CONFIG_EXAMPLE: FormConfig = {
       },
     },
     {
-      id: "fav_class",
+      id: "extra_info",
       type: "TEXT_AREA",
       label: "Additional information",
       data: { size: 4 },
