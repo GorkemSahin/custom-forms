@@ -40,6 +40,11 @@ export const FORM_CONFIG_EXAMPLE: FormConfig = {
       },
     },
     {
+      id: "enrollment_date",
+      type: "DATE",
+      label: "Date of enrollment",
+    },
+    {
       id: "subjects",
       label: "Subjects studied",
       type: "CHECKBOX",
