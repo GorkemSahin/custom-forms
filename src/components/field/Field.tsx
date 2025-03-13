@@ -13,7 +13,9 @@ export const Field = ({ fieldData, control, ...props }: Props) => {
 
   return (
     <Stack direction="column" {...props}>
-      {renderLabelAboveInput && <InputLabel>{fieldData.label}</InputLabel>}
+      {renderLabelAboveInput && (
+        <InputLabel required={fieldData.required}>{fieldData.label}</InputLabel>
+      )}
       {renderInput(fieldData, control)}
     </Stack>
   );
