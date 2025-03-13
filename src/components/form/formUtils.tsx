@@ -25,26 +25,29 @@ export const shouldRenderLabelAboveInput = (field: FieldData) => {
 };
 
 export const renderInput = (field: FieldData, controls: FieldControls) => {
-  switch (field.type) {
+  const { type, label } = field;
+  const { value, onChange } = controls;
+
+  switch (type) {
     case "TEXT":
       return (
         <TextField
-          value={controls.value || ""}
-          onChange={(e) => controls.onChange(e.target.value)}
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
         />
       );
     case "TEXT_AREA":
       return (
         <TextField
-          value={controls.value || ""}
-          onChange={(e) => controls.onChange(e.target.value)}
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
           multiline
           minRows={field.data.size}
         />
       );
     case "CHECKBOX":
       if ("options" in field.data) {
-        const currentValue = (controls.value as string[]) || [];
+        const currentValue = (value as string[]) || [];
         return (
           <FormGroup>
             {field.data.options.map((option) => (
@@ -55,7 +58,7 @@ export const renderInput = (field: FieldData, controls: FieldControls) => {
                   <Checkbox
                     checked={currentValue.includes(option)}
                     onChange={(e) =>
-                      controls.onChange(
+                      onChange(
                         e.target.checked
                           ? [...currentValue, option]
                           : currentValue.filter((v) => v !== option)
@@ -70,34 +73,33 @@ export const renderInput = (field: FieldData, controls: FieldControls) => {
       } else {
         return (
           <FormControlLabel
-            label={field.label}
+            label={label}
             control={
               <Checkbox
-                checked={!!controls.value}
-                onChange={(e) => controls.onChange(e.target.checked)}
+                checked={!!value}
+                onChange={(e) => onChange(e.target.checked)}
               />
             }
           />
         );
       }
     case "DATE":
-      return (
-        <DatePicker
-          value={controls.value || null}
-          onChange={controls.onChange}
-        />
-      );
+      return <DatePicker value={value || null} onChange={onChange} />;
     case "NUMBER":
       return (
         <TextField
           type="number"
-          value={controls.value || ""}
-          onChange={(e) => controls.onChange(e.target.value)}
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
         />
       );
     case "RADIO":
       return (
-        <RadioGroup row value={controls.value || null}>
+        <RadioGroup
+          row
+          value={value || null}
+          onChange={(e) => onChange(e.target.value)}
+        >
           {field.data.options.map((option) => (
             <FormControlLabel
               key={option}
@@ -113,8 +115,8 @@ export const renderInput = (field: FieldData, controls: FieldControls) => {
       return (
         <Select
           multiple={isMultiple}
-          value={controls.value || isMultiple ? [] : ""}
-          onChange={(e) => controls.onChange(e.target.value)}
+          value={value ?? (isMultiple ? [] : "")}
+          onChange={(e) => onChange(e.target.value)}
         >
           {field.data.options.map((option) => (
             <MenuItem key={option} value={option}>
