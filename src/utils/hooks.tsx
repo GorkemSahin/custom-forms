@@ -8,7 +8,6 @@ export interface FieldControls {
 
 export const useForm = () => {
   const [formValues, setFormValues] = useState<FormValues>({});
-  console.log(formValues);
 
   const onFieldChange = (id: string, value: any) => {
     setFormValues((prevData) => ({ ...prevData, [id]: value }));
@@ -32,5 +31,7 @@ export const useForm = () => {
     };
   };
 
-  return { getFieldControls, handleSubmit };
+  const onReset = () => setFormValues({});
+
+  return { getFieldControls, handleSubmit, onReset };
 };

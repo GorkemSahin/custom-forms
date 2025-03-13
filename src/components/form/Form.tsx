@@ -18,11 +18,12 @@ interface Props extends HTMLProps<HTMLFormElement> {
 }
 
 export const Form = ({ formConfig, onSubmit, ...props }: Props) => {
-  const { handleSubmit, getFieldControls } = useForm();
+  const { handleSubmit, getFieldControls, onReset } = useForm();
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
+      onReset={onReset}
       style={{
         height: "100%",
         overflow: "hidden",
