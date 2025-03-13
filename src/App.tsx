@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { Form } from "./components/form/Form";
 import { FormConfigInput } from "./components/formConfig/FormConfigInput";
+import { useSubmitDialog } from "./components/submitDialog/SubmitDialog";
 import { FORM_TABS } from "./utils/const";
 import { FormConfig, FormTab } from "./utils/types";
 
@@ -18,40 +19,48 @@ export function App() {
 
   const [formConfig, setFormConfig] = useState<FormConfig | null>(null);
 
+  const [submitDialog, onSubmit] = useSubmitDialog();
+
   return (
-    <Stack direction="column" spacing={2} className="app">
-      <Typography variant="h5" component="h1">
-        Custom Form Generator
-      </Typography>
-      <Tabs
-        value={activeTab}
-        onChange={(_, newValue) => setActiveTab(newValue)}
-      >
-        {FORM_TABS.map((tab) => (
-          <Tab {...tab} key={tab.value} />
-        ))}
-      </Tabs>
+    <>
+      <Stack direction="column" spacing={2} className="app">
+        <Typography variant="h5" component="h1">
+          Custom Form Generator
+        </Typography>
+        <Tabs
+          value={activeTab}
+          onChange={(_, newValue) => setActiveTab(newValue)}
+        >
+          {FORM_TABS.map((tab) => (
+            <Tab {...tab} key={tab.value} />
+          ))}
+        </Tabs>
 
-      <Box
-        style={{
-          flex: 1,
-          overflow: "hidden",
-        }}
-      >
-        {activeTab === "CONFIG" && <FormConfigInput onApply={setFormConfig} />}
+        <Box
+          style={{
+            flex: 1,
+            overflow: "hidden",
+          }}
+        >
+          {activeTab === "CONFIG" && (
+            <FormConfigInput onApply={setFormConfig} />
+          )}
 
-        {activeTab === "FORM" && formConfig ? (
-          <Form formConfig={formConfig} />
-        ) : (
-          <Alert severity="warning">
-            <AlertTitle>
-              No valid form configuration has been provided.
-            </AlertTitle>
-            Please enter and apply a valid form configuration using the FORM
-            CONFIGURATION tab.
-          </Alert>
-        )}
-      </Box>
-    </Stack>
+          {activeTab === "FORM" && formConfig ? (
+            <Form formConfig={formConfig} onSubmit={onSubmit} />
+          ) : (
+            <Alert severity="warning">
+              <AlertTitle>
+                No valid form configuration has been provided.
+              </AlertTitle>
+              Please enter and apply a valid form configuration using the FORM
+              CONFIGURATION tab.
+            </Alert>
+          )}
+        </Box>
+      </Stack>
+
+      {submitDialog}
+    </>
   );
 }
