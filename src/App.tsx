@@ -1,16 +1,9 @@
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Alert, AlertTitle, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import { Form } from "./components/form/Form";
 import { FormConfigInput } from "./components/formConfig/FormConfigInput";
 import { useSubmitDialog } from "./components/submitDialog/SubmitDialog";
+import { TabContent } from "./components/tabContent/TabContent";
 import { FORM_TABS } from "./utils/const";
 import { FormConfig, FormTab } from "./utils/types";
 
@@ -36,17 +29,24 @@ export function App() {
           ))}
         </Tabs>
 
-        <Box
+        <TabContent
+          visible={activeTab === "CONFIG"}
           style={{
             flex: 1,
             overflow: "hidden",
           }}
         >
-          {activeTab === "CONFIG" && (
-            <FormConfigInput onApply={setFormConfig} />
-          )}
+          <FormConfigInput onApply={setFormConfig} />
+        </TabContent>
 
-          {activeTab === "FORM" && formConfig ? (
+        <TabContent
+          visible={activeTab === "FORM"}
+          style={{
+            flex: 1,
+            overflow: "hidden",
+          }}
+        >
+          {formConfig ? (
             <Form formConfig={formConfig} onSubmit={onSubmit} />
           ) : (
             <Alert severity="warning">
@@ -57,7 +57,7 @@ export function App() {
               CONFIGURATION tab.
             </Alert>
           )}
-        </Box>
+        </TabContent>
       </Stack>
 
       {submitDialog}
